@@ -1,51 +1,49 @@
-package com.simonellistonball.filnk.dedupe;
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.simonellistonball.flink.dedupe;
 
-import lombok.Getter;
+import lombok.Data;
 import org.apache.flink.api.java.utils.ParameterTool;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-@Getter
+@Data
 public class Config {
-
     public static final String K_SCHEMA_REG_URL = "schema.registry.url";
     public static final String K_SCHEMA_REG_SSL_CLIENT_KEY = "schema.registry.client.ssl";
     public static final String K_TRUSTSTORE_PATH = "trustStorePath";
     public static final String K_TRUSTSTORE_PASSWORD = "trustStorePassword";
     public static final String K_KEYSTORE_PASSWORD = "keyStorePassword";
-    private static final String INPUT_TOPIC_KEY = "inputTopic";
-    private static final String OUTPUT_TOPIC_KEY = "outputTopic";
-    private static final String BOOTSTRAP_SERVERS_KEY = "bootstrapServers";
-    private static final String OFFSET_KEY = "offset";
-    private static final String PARALLELISM_KEY = "parallelism";
-    private static final String SLEEPTIME_KEY = "sleep";
-    private static final String INPUT_FILE_KEY = "inputFile";
 
-    private final String inputTopic;
-    private final String outputTopic;
+    private String inputTopic;
+    private String configTopic;
+    private String outputTopic;
 
-    private final String bootstrapServers;
-    private final String offset;
+    private String bootstrapServers;
+    private String offset;
 
-    private final Integer parallelism;
-
-    private final int sleepTime;
-    private final File inputFile;
-
+    private Integer parallelism;
 
     private ParameterTool params;
 
     public Config(ParameterTool params) {
         this.params = params;
-        this.inputTopic = this.params.get(INPUT_TOPIC_KEY);
-        this.outputTopic = this.params.get(OUTPUT_TOPIC_KEY);
-        this.bootstrapServers = this.params.get(BOOTSTRAP_SERVERS_KEY);
-        this.offset = this.params.get(OFFSET_KEY, "latest");
-        this.parallelism = this.params.getInt(PARALLELISM_KEY, 1);
-        this.sleepTime = this.params.getInt(SLEEPTIME_KEY, 10);
-        this.inputFile = new File(this.params.get(INPUT_FILE_KEY));
     }
 
     public Map<String, ?> getSchemaRegistryProperties() {

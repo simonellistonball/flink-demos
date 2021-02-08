@@ -1,0 +1,22 @@
+{
+    "namespace": "com.simonellistonball.flink.dedupe.models",
+    "type": "record",
+    "name": "LogEntry",
+    "fields": [
+        {
+            "name": "timestamp",
+            "type": "long"
+        },
+        {
+            "name": "count",
+            "type": [null, "long"]
+        },
+        {
+            "name": "data",
+            "type": {
+                "type": "map",
+                "values": "string"
+            }
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "namespace": "com.simonellistonball.flink.dedupe.models",
+    "type": "record",
+    "name": "DeduplicationRule",
+    "fields": [
+      {
+        "name": "id", "type": "int"
+      },{
+        "name": "groupFields", "type": { "type": "array", "items": "string" }
+      },{
+        "name": "aggFields", "type": { "type": "array", "items": "string" }
+      },{
+        "name": "aggMethod", "type": { "type": "enum", "name": "DeduplicationAggregationMethods", "symbols": [ "SUM", "AVERAGE", "MAX", "MIN", "COUNT" ] }
+      }
+    ]
+}
